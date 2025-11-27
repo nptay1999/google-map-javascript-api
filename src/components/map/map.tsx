@@ -12,6 +12,8 @@ export interface MapProps {
   center?: google.maps.LatLngLiteral;
   /** Zoom level of the map */
   zoom?: number;
+  /** Map ID (required for Advanced Markers) */
+  mapId?: string;
   /** Callback fired when the map is clicked */
   onClick?: (e: google.maps.MapMouseEvent) => void;
   /** Callback fired when the map becomes idle */
@@ -41,6 +43,7 @@ export function Map({
   className,
   center = { lat: 0, lng: 0 },
   zoom = 10,
+  mapId,
   onClick,
   onIdle,
   children,
@@ -61,6 +64,7 @@ export function Map({
       const mapInstance = new Map(containerRef.current!, {
         center,
         zoom,
+        mapId,
         disableDefaultUI: false,
       });
 
@@ -68,7 +72,7 @@ export function Map({
     };
 
     initMap();
-  }, [google, map, center, zoom]);
+  }, [google, map, center, zoom, mapId]);
 
   // Sync center and zoom props to map instance
   useEffect(() => {
